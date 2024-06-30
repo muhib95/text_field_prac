@@ -9,6 +9,7 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final scafoldKey = GlobalKey<ScaffoldState>();
+  final formValidate=GlobalKey<FormState>();
   int currentState = 0;
   bool ob = true;
 
@@ -47,13 +48,26 @@ class _LoginPageState extends State<LoginPage> {
         ],
         elevation: 0,
       ),
-      body: Center(
+      body: Form(
+        key: formValidate,
+        child:
+      Center(
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(18.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              TextField(
+              TextFormField(
+                validator: (value) {
+                  if(value==null || value.isEmpty){
+                    return 'Please Enter your Email';
+                  }
+                  return null;
+
+                },
+                onChanged: (value) {
+                  print('Value: $value');
+                },
                 decoration: InputDecoration(
                   prefixIcon: Icon(Icons.email),
                   border: OutlineInputBorder(
@@ -66,7 +80,14 @@ class _LoginPageState extends State<LoginPage> {
               SizedBox(
                 height: 12,
               ),
-              TextField(
+              TextFormField(
+                validator: (value) {
+                  if(value==null || value.isEmpty){
+                    return 'Please Enter your Password';
+                  }
+                  return null;
+
+                },
                 obscureText: ob,
                 obscuringCharacter: '*',
                 decoration: InputDecoration(
@@ -79,7 +100,7 @@ class _LoginPageState extends State<LoginPage> {
                     icon: Icon( ob == false
                         ? Icons.visibility_off
                         : Icons.visibility),
-                 
+
                   ),
                   prefixIcon: Icon(Icons.password),
                   border: OutlineInputBorder(
@@ -89,9 +110,23 @@ class _LoginPageState extends State<LoginPage> {
                   label: Text('Password'),
                 ),
               ),
+              SizedBox(
+                height: 12,
+              ),
+           MaterialButton(onPressed: () {
+             // print(formValidate.currentState);
+             if(formValidate.currentState!.validate()){
+               print('Login Success');
+             }
+
+           },
+             child: Text('Login',style: TextStyle(color: Colors.white),),
+           color: Colors.blue,
+           )
             ],
           ),
         ),
+      ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
