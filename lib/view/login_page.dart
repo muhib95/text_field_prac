@@ -9,10 +9,11 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final scafoldKey = GlobalKey<ScaffoldState>();
-  final formValidate=GlobalKey<FormState>();
+  final formValidate = GlobalKey<FormState>();
   int currentState = 0;
   bool ob = true;
-bool toggle=false;
+  bool toggle = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,94 +51,142 @@ bool toggle=false;
       ),
       body: Form(
         key: formValidate,
-        child:
-      Center(
-        child: Padding(
-          padding: const EdgeInsets.all(18.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              TextFormField(
-                validator: (value) {
-                  if(value==null || value.isEmpty){
-                    return 'Please Enter your Email';
-                  }
-                  return null;
-
-                },
-                onChanged: (value) {
-                  print('Value: $value');
-                },
-                decoration: InputDecoration(
-                  prefixIcon: Icon(Icons.email),
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.black),
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(18.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TextFormField(
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please Enter your Email';
+                    }
+                    return null;
+                  },
+                  onChanged: (value) {
+                    print('Value: $value');
+                  },
+                  decoration: InputDecoration(
+                    prefixIcon: Icon(Icons.email),
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.black),
+                    ),
+                    hintText: 'Enter your email',
+                    label: Text('Email'),
                   ),
-                  hintText: 'Enter your email',
-                  label: Text('Email'),
                 ),
-              ),
-              SizedBox(
-                height: 12,
-              ),
-              TextFormField(
-                validator: (value) {
-                  if(value==null || value.isEmpty){
-                    return 'Please Enter your Password';
-                  }
-                  return null;
-
-                },
-                obscureText: ob,
-                obscuringCharacter: '*',
-                decoration: InputDecoration(
-                  suffixIcon: IconButton(
-                    onPressed: () {
-                      setState(() {
-                        ob = !ob;
-                      });
-                    },
-                    icon: Icon( ob == false
-                        ? Icons.visibility_off
-                        : Icons.visibility),
-
-                  ),
-                  prefixIcon: Icon(Icons.password),
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.black),
-                  ),
-                  hintText: 'Enter your password',
-                  label: Text('Password'),
+                SizedBox(
+                  height: 12,
                 ),
-              ),
-              SizedBox(
-                height: 12,
-              ),
-           MaterialButton(onPressed: () {
-             // print(formValidate.currentState);
-             if(formValidate.currentState!.validate()){
-               // print('Login Success');
-               showDialog(context: context, builder: (context) {
-                 return AlertDialog(
-                   title: Text('Login Successful'),
+                TextFormField(
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please Enter your Password';
+                    }
+                    return null;
+                  },
+                  obscureText: ob,
+                  obscuringCharacter: '*',
+                  decoration: InputDecoration(
+                    suffixIcon: IconButton(
+                      onPressed: () {
+                        setState(() {
+                          ob = !ob;
+                        });
+                      },
+                      icon: Icon(ob == false
+                          ? Icons.visibility_off
+                          : Icons.visibility),
+                    ),
+                    prefixIcon: Icon(Icons.password),
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.black),
+                    ),
+                    hintText: 'Enter your password',
+                    label: Text('Password'),
+                  ),
+                ),
+                SizedBox(
+                  height: 12,
+                ),
+                MaterialButton(
+                  onPressed: () {
+                    // print(formValidate.currentState);
+                    if (formValidate.currentState!.validate()) {
+                      // print('Login Success');
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            title: Text('Login Successful'),
+                          );
+                        },
+                      );
+                    }
+                  },
+                  child: Text(
+                    'Login',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  color: Colors.red,
+                ),
+                Switch(
+                  value: toggle,
+                  onChanged: (value) {
+                    setState(() {
+                      toggle = !toggle;
+                    });
+                  },
+                ),
+                SizedBox(
+                  width: double.infinity,
+                  child: TextButton(
+                      onPressed: () {},
+                      style: TextButton.styleFrom(
+                          padding: EdgeInsets.all(12),
+                          minimumSize: Size(100, 50),
+                          foregroundColor: Colors.white,
+                          backgroundColor: Colors.red,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          )),
+                      child: Text('Sign up')),
+                ),
 
-                 );
-               },);
-             }
-
-           },
-             child: Text('Login',style: TextStyle(color: Colors.white),),
-           color: Colors.red,
-           ),
-              Switch(value: toggle, onChanged: (value) {
-                setState(() {
-                  toggle=!toggle;
-                });
-              },)
-            ],
+                SizedBox(
+                  height: 20,
+                ),
+                // Stack(
+                //   alignment: Alignment.center,
+                //   children: [
+                //     Container(
+                //       height: 200,
+                //       width: double.infinity,
+                //       color: Colors.green,
+                //     ),
+                //     Container(
+                //       height: 90,
+                //       width: 90,
+                //       decoration: BoxDecoration(
+                //         color: Colors.red,
+                //         shape: BoxShape.circle,
+                //       ),
+                //     )
+                //   ],
+                // ),
+                ListTile(
+                  leading: CircleAvatar(
+                    backgroundColor: Colors.blue,
+                  ),
+                  title: Text('Muhibbul Hasan'),
+                  subtitle: Text('Hi there'),
+                  trailing: Text('Today'),
+                ),
+              ],
+            ),
           ),
         ),
-      ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
