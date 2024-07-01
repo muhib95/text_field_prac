@@ -12,7 +12,7 @@ class _LoginPageState extends State<LoginPage> {
   final formValidate=GlobalKey<FormState>();
   int currentState = 0;
   bool ob = true;
-
+bool toggle=false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -116,13 +116,24 @@ class _LoginPageState extends State<LoginPage> {
            MaterialButton(onPressed: () {
              // print(formValidate.currentState);
              if(formValidate.currentState!.validate()){
-               print('Login Success');
+               // print('Login Success');
+               showDialog(context: context, builder: (context) {
+                 return AlertDialog(
+                   title: Text('Login Successful'),
+
+                 );
+               },);
              }
 
            },
              child: Text('Login',style: TextStyle(color: Colors.white),),
            color: Colors.red,
-           )
+           ),
+              Switch(value: toggle, onChanged: (value) {
+                setState(() {
+                  toggle=!toggle;
+                });
+              },)
             ],
           ),
         ),
