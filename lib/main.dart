@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:wiget_prac/view/color.dart';
 import 'package:wiget_prac/view/day_five.dart';
+import 'package:wiget_prac/view/grid.dart';
 import 'package:wiget_prac/view/login_page.dart';
 
 void main(){
@@ -21,7 +23,7 @@ class MyApp extends StatelessWidget {
       themeMode: ThemeMode.light,
       title: 'This is title',
       color: Colors.red,
-      home: DayFive(),
+      home: ColorPage(),
     );
   }
 }
